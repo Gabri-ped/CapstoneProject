@@ -437,6 +437,30 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 40301204}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &40301206 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8758574439465711275, guid: 1cb82930246bb164aaaf62da7124329b,
+    type: 3}
+  m_PrefabInstance: {fileID: 40301204}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &40301207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4565474286238173904, guid: 1cb82930246bb164aaaf62da7124329b,
+    type: 3}
+  m_PrefabInstance: {fileID: 40301204}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &274403246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,9 +2374,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinsText: {fileID: 2025080056}
   buyLifeButton: {fileID: 1658437878}
+  buySuperJumpButton: {fileID: 40301206}
   lifePriceText: {fileID: 1658437877}
   extraLivesText: {fileID: 2081970770}
-  lifePrice: 1
+  superJumpPriceText: {fileID: 40301207}
+  superJumpInventoryText: {fileID: 1995057006}
+  lifePrice: 2
+  superJumpPrice: 5
   extraLivesBought: 0
 --- !u!4 &813365936
 Transform:
@@ -4578,6 +4606,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991378878}
   m_CullTransparentMesh: 1
+--- !u!114 &1995057006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1795422683879271745, guid: 1cb82930246bb164aaaf62da7124329b,
+    type: 3}
+  m_PrefabInstance: {fileID: 40301204}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2025080054
 GameObject:
   m_ObjectHideFlags: 0

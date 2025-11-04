@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,10 +8,14 @@ public class ShopManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinsText;
     [SerializeField] Button buyLifeButton;
+    [SerializeField] Button buySuperJumpButton;
     [SerializeField] private TextMeshProUGUI lifePriceText;
     [SerializeField] private TextMeshProUGUI extraLivesText;
+    [SerializeField] private TextMeshProUGUI superJumpPriceText;
+    [SerializeField] private TextMeshProUGUI superJumpInventoryText;
 
     public int lifePrice = 5;
+    public int superJumpPrice = 10;
     public int extraLivesBought = 0;
 
     public static ShopManager Instance { get; private set; }
@@ -37,6 +41,7 @@ public class ShopManager : MonoBehaviour
             extraLivesBought = SaveSystem.Instance.SaveData.extraLives;
 
         buyLifeButton.onClick.AddListener(BuyExtraLife);
+        buySuperJumpButton.onClick.AddListener(BuySuperJump);
     }
 
     void UpdateUI()
@@ -59,6 +64,21 @@ public class ShopManager : MonoBehaviour
             coinsText.text = "Coins: " + coinsToShow;
             lifePriceText.text = " " + lifePrice;
             extraLivesText.text = " " + extraLivesBought;
+
+        if (superJumpPriceText != null)
+            superJumpPriceText.text = " " + superJumpPrice;
+        if (superJumpInventoryText != null)
+        {
+            int superJumpCount = SaveSystem.Instance.SaveData.SuperJumpActive ? 1 : 0;
+            superJumpInventoryText.text = " " + superJumpCount;
+            superJumpInventoryText.color = superJumpCount > 0 ? Color.green : Color.white;
+        }
+
+        // ✅ Disattiva pulsante se Super Jump già acquistato
+        if (SaveSystem.Instance.SaveData.SuperJumpActive)
+            buySuperJumpButton.interactable = false;
+        else
+            buySuperJumpButton.interactable = true;
     }
 
     public void BuyExtraLife()
@@ -87,5 +107,41 @@ public class ShopManager : MonoBehaviour
         }
 
         UpdateUI();
+    }
+
+    public void BuySuperJump()
+    {
+        if (SaveSystem.Instance == null || SaveSystem.Instance.SaveData == null)
+            return;
+
+        int currentCoins = SaveSystem.Instance.SaveData.coins;
+
+        // 🔒 Se già comprato, non riacquistabile
+        if (SaveSystem.Instance.SaveData.SuperJumpActive)
+        {
+            Debug.Log("Hai già acquistato il Super Jump!");
+            return;
+        }
+
+        // 🔥 Altrimenti, acquisto valido
+        if (currentCoins >= superJumpPrice)
+        {
+            SaveSystem.Instance.SaveData.coins -= superJumpPrice;
+            SaveSystem.Instance.SaveData.SuperJumpActive = true;
+
+            SaveSystem.Instance.SaveShopData(
+                SaveSystem.Instance.SaveData.coins,
+                SaveSystem.Instance.SaveData.extraLives
+            );
+
+            SaveSystem.Instance.SaveGame();
+            UpdateUI();
+
+            Debug.Log("Hai acquistato il Super Jump!");
+        }
+        else
+        {
+            Debug.Log("Monete insufficienti per il Super Jump!");
+        }
     }
 }

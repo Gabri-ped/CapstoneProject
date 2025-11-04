@@ -70,9 +70,10 @@ public class SaveSystem : MonoBehaviour
         int lifes = LifeController.Instance.currentLives;
         int extraLives = SaveData.extraLives;
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        bool superJumpActive = SaveData.SuperJumpActive;
 
 
-        SaveData = new SaveData(position, rotation, coins, lifes, SaveData.collectedCoins,extraLives,sceneIndex);
+        SaveData = new SaveData(position, rotation, coins, lifes, SaveData.collectedCoins,extraLives,sceneIndex,superJumpActive);
         _data = JsonConvert.SerializeObject(SaveData, Formatting.Indented);
         try
         {
@@ -109,6 +110,7 @@ public class SaveSystem : MonoBehaviour
         // Aggiorna solo i dati globali
         SaveData.coins = coins;
         SaveData.extraLives = extraLives;
+        SaveData.SuperJumpActive = SaveData.SuperJumpActive;
 
         // Mantiene le altre info già salvate
         string json = JsonConvert.SerializeObject(SaveData, Formatting.Indented);
@@ -149,6 +151,9 @@ public class SaveSystem : MonoBehaviour
             // ✅ ShopManager (solo se esiste nella scena)
             if (ShopManager.Instance != null)
                 ShopManager.Instance.extraLivesBought = SaveData.extraLives;
+            // ✅ PlayerController SuperJump
+            if (PlayerController.instance != null)
+                PlayerController.instance.EnableSuperJump(SaveData.SuperJumpActive);
 
             // ✅ CoinRegistry (solo se esiste e ci sono monete registrate)
             if (CoinRegistry.Instance != null && SaveData.collectedCoins != null)

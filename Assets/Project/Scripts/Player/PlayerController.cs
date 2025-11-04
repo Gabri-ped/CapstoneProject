@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 0.5f;
     [SerializeField] private float runSpeed = 2f;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float superJumpForce = 8.5f;
     [SerializeField] private GroundChecker _groundChecker;
     private float rotationSpeed = 0.1f;
 
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDir;
     private float h;
     private float v;
+
+    private bool canSuperJump = false;
 
     public static PlayerController instance;
 
@@ -75,8 +78,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump")&& _groundChecker.IsGrounded)
         {
+            float appliedJumpForce = canSuperJump ? superJumpForce : jumpForce;
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             
         }
+    }
+    public void EnableSuperJump(bool value)
+    {
+       canSuperJump = value;
     }
 }

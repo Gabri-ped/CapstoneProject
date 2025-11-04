@@ -12,12 +12,13 @@ public class SaveData
     public List <string> collectedCoins = new List<string>();
     public int extraLives;
     public int sceneIndex;
+    public bool SuperJumpActive;
 
     public SaveData()
     {
     }
 
-    public SaveData(float[] position, float[] rotation, int coins, int lifes, List<string> collectedCoins,int extraLives = 0,int sceneIndex = 1)
+    public SaveData(float[] position, float[] rotation, int coins, int lifes, List<string> collectedCoins,int extraLives = 0,int sceneIndex = 1,bool superJumpActivate = false)
     {
         this.position = position;
         this.rotation = rotation;
@@ -26,5 +27,6 @@ public class SaveData
         this.collectedCoins = collectedCoins ?? new List<string>();
         this.extraLives = extraLives;
         this.sceneIndex = sceneIndex;
+        this.SuperJumpActive = superJumpActivate;
     }
 }
