@@ -16,6 +16,7 @@ public class GameMenùManager : MonoBehaviour
     {
         SceneManager.LoadScene(2);
         AudioManager.Instance.StopVictorySound();
+        Time.timeScale = 1f;
     }
 
     public void Retry2Level()
